@@ -149,37 +149,33 @@
     </footer>
 
     <script>
-        // Все 20 фраз в точном соответствии с файлами в папке sounds
         const voiceLines = [
-            { id: 1, talent: "Lyrical", phrase: "«Congratulations, you've made it to LATE GAME!»", file: "lyrical.mp3", lang: "EN" },
-            { id: 2, talent: "Ephey", phrase: "«Oh no! Are you okay?»", file: "Ephey.mp3", lang: "EN" },
-            { id: 3, talent: "Bkop", phrase: "«It is only game, why you have to be mad?»", file: "Bkop.mp3", lang: "EN" },
-            { id: 4, talent: "SaberLight", phrase: "«I'm a little goblin, I'm a little goblin»", file: "Goblin.mp3", lang: "EN" },
-            { id: 5, talent: "Reya", phrase: "«Don't touch my pookie! *growl*»", file: "reya.mp3", lang: "EN" },
-            { id: 6, talent: "Fogged", phrase: "«GOOAALL»", file: "Fogged goal.mp3", lang: "EN" },
-            { id: 7, talent: "Cap", phrase: "«NO-NO-NO-NO-NO, WAIT-WAIT-WAIT-WAIT»", file: "Cap.mp3", lang: "EN" },
-            { id: 8, talent: "StingeJ2", phrase: "«Choo-choo. Train feed»", file: "stingj2.mp3", lang: "EN" },
-            { id: 9, talent: "Autodestruction", phrase: "«Ту-ту-ду!»", file: "Ту-ту-ду.mp3", lang: "RU" },
-            { id: 10, talent: "RodjER", phrase: "«А мы с кайфом посидим вообще!»", file: "а мы с кайфом.mp3", lang: "RU" },
-            { id: 11, talent: "y0nd", phrase: "«Жизнь одна, а Дота 2»", file: "жизнь одна а дота 2.mp3", lang: "RU" },
-            { id: 12, talent: "Maelstorm", phrase: "«Ждет момента, ждет момента, фоткает, уходит»", file: "ждет момента.mp3", lang: "RU" },
-            { id: 13, talent: "Vasilisa", phrase: "«Охаёшечки-даттебаёшечки! Поанимешимся?»", file: "охаешки.mp3", lang: "RU" },
-            { id: 14, talent: "JAM", phrase: "«Невозможно испытывать гнев к тем, кто слабее тебя»", file: "невозможно.mp3", lang: "RU" },
-            { id: 15, talent: "Inmatteo", phrase: "«Уступите мид пожалуйста»", file: "inmateo.mp3", lang: "RU" },
-            { id: 16, talent: "Necca", phrase: "«Yo soy tu padre» / Я твой отец", file: "padre.mp3", lang: "OTHER" },
-            { id: 17, talent: "Mashall", phrase: "«中奖概率倍儿高...» / Шансы на выигрыш высоки...", file: "mashall.mp3", lang: "OTHER" },
-            { id: 18, talent: "Yuno (2025)", phrase: "«我又没有惹你，你打赏我干嘛呀» / Я же тебя не трогала, зачем ты меня типаешь?", file: "Yuno 2025.mp3", lang: "OTHER" },
-            { id: 19, talent: "Yuno", phrase: "«И что, и что теперь?»", file: "Yuno.mp3", lang: "OTHER" },
-            { id: 20, talent: "Luna", phrase: "«Эй, чувак, это возмутительно, чувак»", file: "Luna.mp3", lang: "OTHER" }
+            { id: 1, talent: "Lyrical", text: "«Congratulations, you've made it to LATE GAME!»", file: "lyrical.mp3", lang: "EN" },
+            { id: 2, talent: "Ephey", text: "«Oh no! Are you okay?»", file: "Ephey.mp3", lang: "EN" },
+            { id: 3, talent: "Bkop", text: "«It is only game, why you have to be mad?»", file: "Bkop.mp3", lang: "EN" },
+            { id: 4, talent: "SaberLight", text: "«I'm a little goblin, I'm a little goblin»", file: "Goblin.mp3", lang: "EN" },
+            { id: 5, talent: "Reya", text: "«Don't touch my pookie! *growl*»", file: "reya.mp3", lang: "EN" },
+            { id: 6, talent: "Fogged", text: "«GOOAALL»", file: "Fogged goal.mp3", lang: "EN" },
+            { id: 7, talent: "Cap", text: "«NO-NO-NO-NO-NO, WAIT-WAIT-WAIT-WAIT»", file: "Cap.mp3", lang: "EN" },
+            { id: 8, talent: "StingeJ2", text: "«Choo-choo. Train feed»", file: "stingj2.mp3", lang: "EN" },
+            { id: 9, talent: "Autodestruction", text: "«Ту-ту-ду!»", file: "Ту-ту-ду.mp3", lang: "RU" },
+            { id: 10, talent: "RodjER", text: "«А мы с кайфом посидим вообще!»", file: "а мы с кайфом.mp3", lang: "RU" },
+            { id: 11, talent: "y0nd", text: "«Жизнь одна, а Дота 2»", file: "жизнь одна а дота 2.mp3", lang: "RU" },
+            { id: 12, talent: "Maelstorm", text: "«Ждет момента, ждет момента, фоткает, уходит»", file: "ждет момента.mp3", lang: "RU" },
+            { id: 13, talent: "Vasilisa", text: "«Охаёшечки-даттебаёшечки! Поанимешимся?»", file: "охаешки.mp3", lang: "RU" },
+            { id: 14, talent: "JAM", text: "«Невозможно испытывать гнев к тем, кто слабее тебя»", file: "невозможно.mp3", lang: "RU" },
+            { id: 15, talent: "Inmatteo", text: "«Уступите мид пожалуйста»", file: "inmateo.mp3", lang: "RU" },
+            { id: 16, talent: "Necca", text: "«Yo soy tu padre» / Я твой отец", file: "padre.mp3", lang: "OTHER" },
+            { id: 17, talent: "Mashall", text: "«中奖概率倍儿高...» / Шансы на выигрыш высоки...", file: "mashall.mp3", lang: "OTHER" },
+            { id: 18, talent: "Yuno (2025)", text: "«我又没有惹你，你打赏我干嘛呀» / Я же тебя не трогала, зачем ты меня типаешь?", file: "Yuno 2025.mp3", lang: "OTHER" },
+            { id: 19, talent: "Yuno", text: "«И что, и что теперь?»", file: "Yuno.mp3", lang: "OTHER" },
+            { id: 20, talent: "Luna", text: "«Эй, чувак, это возмутительно, чувак»", file: "Luna.mp3", lang: "OTHER" }
         ];
 
         let currentLang = "ALL";
         let currentAudio = null;
         let currentPlayingId = null;
 
-        const grid = document.getElementById("cardsGrid");
-        const searchInput = document.getElementById("searchInput");
-        const emptyState = document.getElementById("emptyState");
         const volumeSlider = document.getElementById("volumeSlider");
 
         volumeSlider.addEventListener("input", (e) => {
@@ -202,7 +198,6 @@
                 currentAudio.currentTime = 0;
             }
 
-            // Ищем аудиофайл в текущей папке или в папке sounds/
             currentAudio = new Audio(file);
             currentAudio.volume = parseFloat(volumeSlider.value);
             currentPlayingId = id;
@@ -214,7 +209,7 @@
                 currentAudio = fallbackAudio;
 
                 fallbackAudio.play().catch(() => {
-                    alert(`Не найден аудиофайл: "${file}"\nУбедись, что файл index.html лежит рядом с папкой sounds или внутри неё!`);
+                    alert(`Не найден аудиофайл: "${file}"`);
                     currentPlayingId = null;
                     renderCards();
                 });
@@ -232,20 +227,21 @@
         }
 
         function renderCards() {
-            const query = searchInput.value.toLowerCase().trim();
+            const query = document.getElementById("searchInput").value.toLowerCase().trim();
+            const grid = document.getElementById("cardsGrid");
             grid.innerHTML = "";
 
             const filtered = voiceLines.filter(item => {
                 const matchesLang = currentLang === "ALL" || item.lang === currentLang;
-                const matchesSearch = item.talent.toLowerCase().includes(query) || item.phrase.toLowerCase().includes(query);
+                const matchesSearch = item.talent.toLowerCase().includes(query) || item.text.toLowerCase().includes(query);
                 return matchesLang && matchesSearch;
             });
 
             if (filtered.length === 0) {
-                emptyState.classList.remove("hidden");
+                document.getElementById("emptyState").classList.remove("hidden");
                 return;
             }
-            emptyState.classList.add("hidden");
+            document.getElementById("emptyState").classList.add("hidden");
 
             filtered.forEach(item => {
                 const isPlaying = currentPlayingId === item.id;
@@ -265,7 +261,7 @@
                             </span>
                         </div>
                         <p class="text-gray-200 text-sm font-medium leading-relaxed bg-black/30 p-3.5 rounded-xl border border-white/5">
-                            ${item.phrase}
+                            ${item.text}
                         </p>
                     </div>
 
@@ -280,12 +276,12 @@
                         </button>
 
                         <div class="flex items-center gap-2">
-                            <button onclick="copyPhrase('${item.talent.replace(/'/g, "\\'")}', '${item.phrase.replace(/'/g, "\\'")}')" 
+                            <button onclick="copyPhrase('${item.talent.replace(/'/g, "\\'")}', '${item.text.replace(/'/g, "\\'")}')" 
                                     class="flex-1 py-2.5 px-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold text-gray-200 transition flex items-center justify-center gap-1.5">
                                 📋 Скопировать
                             </button>
                             <a href="https://funpay.com/users/11653392/" target="_blank" rel="noopener noreferrer"
-                               onclick="copyPhrase('${item.talent.replace(/'/g, "\\'")}', '${item.phrase.replace(/'/g, "\\'")}')"
+                               onclick="copyPhrase('${item.talent.replace(/'/g, "\\'")}', '${item.text.replace(/'/g, "\\'")}')"
                                class="py-2.5 px-4 rounded-xl glow-btn text-xs font-semibold text-white transition flex items-center justify-center gap-1">
                                 Купить →
                             </a>
@@ -305,7 +301,7 @@
         }
 
         function resetFilters() {
-            searchInput.value = "";
+            document.getElementById("searchInput").value = "";
             filterItems("ALL");
         }
 
@@ -320,7 +316,7 @@
             }, 3000);
         }
 
-        searchInput.addEventListener("input", renderCards);
+        document.getElementById("searchInput").addEventListener("input", renderCards);
         renderCards();
     </script>
 </body>
