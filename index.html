@@ -1,4 +1,98 @@
-function togglePlay(id, btnId, barId) {
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HartyOz • Прослушать фразу колеса чата Dota 2</title>
+  <style>
+    :root {
+      --bg: #0d0f14;
+      --card: #151922;
+      --card-inner: #1c222e;
+      --border: #262e3d;
+      --accent: #3b82f6;
+      --accent-hover: #2563eb;
+      --funpay: #ff6b00;
+      --funpay-hover: #ff8124;
+      --text: #f1f5f9;
+      --muted: #8b95a7;
+      --green: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: var(--bg); color: var(--text); min-height: 100vh; padding: 24px 16px 60px; display: flex; flex-direction: column; align-items: center; }
+    .container { width: 100%; max-width: 640px; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 10px; }
+    .logo { font-size: 20px; font-weight: 800; color: var(--text); text-decoration: none; }
+    .logo span { color: var(--accent); }
+    .seller-badge { background: rgba(59, 130, 246, 0.12); color: #60a5fa; text-decoration: none; font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(59, 130, 246, 0.3); }
+    .showcase-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 24px; margin-bottom: 18px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45); }
+    .tag-row { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
+    .tag { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 6px; background: rgba(59, 130, 246, 0.15); color: #93c5fd; }
+    .showcase-title { font-size: 22px; font-weight: 800; line-height: 1.3; margin-bottom: 6px; }
+    .showcase-sub { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+    .player-box { background: var(--card-inner); border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 18px; }
+    .play-big-btn { width: 100%; background: var(--accent); color: #fff; border: none; padding: 15px 20px; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .play-big-btn:hover { background: var(--accent-hover); }
+    .play-big-btn.playing { background: var(--green); }
+    .progress-wrap { width: 100%; height: 6px; background: #10141d; border-radius: 99px; overflow: hidden; margin-top: 12px; }
+    .progress-fill { height: 100%; width: 0%; background: var(--green); transition: width 0.1s linear; }
+    .buy-big-btn { width: 100%; background: var(--funpay); color: #fff; text-decoration: none; padding: 15px 20px; border-radius: 10px; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 18px; }
+    .buy-big-btn:hover { background: var(--funpay-hover); }
+    .info-blocks { display: grid; gap: 10px; border-top: 1px solid var(--border); padding-top: 16px; }
+    .info-item { font-size: 13px; line-height: 1.45; color: var(--muted); background: rgba(255, 255, 255, 0.02); padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.05); }
+    .info-item strong { color: var(--text); display: block; margin-bottom: 2px; }
+    .search-box { width: 100%; padding: 13px 16px; border-radius: 12px; border: 1px solid var(--border); background: var(--card); color: var(--text); font-size: 15px; margin-bottom: 14px; outline: none; }
+    .search-box:focus { border-color: var(--accent); }
+    .list-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 10px; }
+    .list-title { font-size: 16px; font-weight: 700; }
+    .list-note { font-size: 13px; color: var(--muted); }
+    .list-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn-sm { flex: 1; min-width: 130px; padding: 10px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; text-decoration: none; text-align: center; }
+    .btn-play { background: var(--accent); color: #fff; }
+    .btn-play.playing { background: var(--green); }
+    .btn-open { background: var(--card-inner); color: var(--text); border: 1px solid var(--border); }
+    .btn-copy { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+    .all-btn { display: inline-block; color: var(--muted); text-decoration: none; font-size: 14px; padding: 10px 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="?" class="logo">HARTY<span>OZ</span> VAULT</a>
+      <a href="https://funpay.com/users/11653392/" target="_blank" class="seller-badge">⭐ Профиль HartyOz на FunPay</a>
+    </header>
+    <div id="app"></div>
+  </div>
+  <script>
+    const FUNPAY_URL = "https://funpay.com/users/11653392/";
+    const PHRASES = [
+      { id: "bkop", talent: "Bkop", text: "«It is only game, why you have to be mad?»", note: "Это всего лишь игра, зачем злиться?", files: ["Bkop.mp3", "sounds/Bkop.mp3"] },
+      { id: "cap", talent: "Cap", text: "«NO-NO-NO-NO-NO, WAIT-WAIT-WAIT-WAIT»", note: "НЕТ-НЕТ-НЕТ, ПОДОЖДИ-ПОДОЖДИ!", files: ["Cap.mp3", "sounds/Cap.mp3"] },
+      { id: "ephey", talent: "Ephey", text: "«Oh no! Are you okay?»", note: "О нет! Ты в порядке?", files: ["Ephey.mp3", "sounds/Ephey.mp3"] },
+      { id: "fogged", talent: "Fogged", text: "«GOOAALL»", note: "ГОООООЛ!", files: ["Fogged goal.mp3", "sounds/Fogged goal.mp3"] },
+      { id: "saberlight", talent: "SabeRLighT-", text: "«I'm a little goblin, I'm a little goblin»", note: "Я маленький гоблин", files: ["Goblin.mp3", "sounds/Goblin.mp3"] },
+      { id: "luna", talent: "Luna", text: "Озвучка колеса чата • Luna", note: "Фраза в колесо чата Dota 2", files: ["Luna.mp3", "sounds/Luna.mp3"] },
+      { id: "yuno", talent: "Yuno", text: "«我又没有惹你，你打赏我干嘛呀»", note: "Я же тебя не трогала, зачем ты меня типаешь?", files: ["Yuno.mp3", "Yuno 2025.mp3", "sounds/Yuno.mp3"] },
+      { id: "vasilisa", talent: "Vasilisa", text: "«Охаёшечки-даттебаёшечки! Поанимешимся?»", note: "Русская озвучка таланта • Колесо чата Dota 2", files: ["охаешки.mp3", "sounds/охаешки.mp3"] },
+      { id: "autodestruction", talent: "Autodestruction", text: "«Ту-ту-ду!»", note: "Русская озвучка таланта • Колесо чата Dota 2", files: ["Ту-ту-ду.mp3", "sounds/Ту-ту-ду.mp3"] },
+      { id: "maelstorm", talent: "Maelstorm", text: "«Ждет момента, ждет момента, фоткает, уходит»", note: "Русская озвучка таланта • Колесо чата Dota 2", files: ["ждет момента.mp3", "sounds/ждет момента.mp3"] },
+      { id: "rodjer", talent: "RodjER", text: "«А мы с кайфом посидим вообще!»", note: "Русская озвучка таланта • Колесо чата Dota 2", files: ["а мы с кайфом.mp3", "sounds/а мы с кайфом.mp3"] },
+      { id: "y0nd", talent: "y0nd", text: "«Жизнь одна, а Дота 2»", note: "Русская озвучка таланта • Колесо чата Dota 2", files: ["жизнь одна а дота 2.mp3", "sounds/жизнь одна а дота 2.mp3"] },
+      { id: "jam", talent: "JAM", text: "«Невозможно испытывать гнев к тем, кто слабее тебя»", note: "Русская озвучка таланта • Колесо чата Dota 2", files: ["невозможно.mp3", "sounds/невозможно.mp3"] }
+    ];
+
+    let currentAudio = null;
+    let playingId = null;
+    const phraseId = new URLSearchParams(window.location.search).get("id");
+
+    function tryPlay(files, idx, ok, fail) {
+      if (idx >= files.length) return fail();
+      const a = new Audio(encodeURI(files[idx]));
+      a.onloadeddata = () => ok(a);
+      a.onerror = () => tryPlay(files, idx + 1, ok, fail);
+    }
+
+    function togglePlay(id, btnId, barId) {
       const item = PHRASES.find(p => p.id === id);
       if (!item) return;
       const btn = document.getElementById(btnId);
@@ -32,7 +126,7 @@ function togglePlay(id, btnId, barId) {
     }
 
     function copyLink(id, btn) {
-      const url = ${window.location.origin}${window.location.pathname}?id=${id};
+      const url = `${window.location.origin}${window.location.pathname}?id=${id}`;
       navigator.clipboard.writeText(url);
       const old = btn.textContent;
       btn.textContent = "✅ Скопировано!";
@@ -44,7 +138,7 @@ function togglePlay(id, btnId, barId) {
       if (phraseId) {
         const item = PHRASES.find(p => p.id === phraseId);
         if (item) {
-          app.innerHTML = 
+          app.innerHTML = `
             <div class="showcase-card">
               <div class="tag-row"><span class="tag">🎧 Голос ${item.talent}</span><span class="tag">Колесо чата Dota 2</span></div>
               <div class="showcase-title">${item.text}</div>
@@ -60,12 +154,12 @@ function togglePlay(id, btnId, barId) {
               </div>
             </div>
             <a href="?" class="all-btn">← Все озвучки в наличии (${PHRASES.length} шт.)</a>
-          ;
+          `;
           return;
         }
       }
 
-      app.innerHTML = <input type="text" id="search" class="search-box" placeholder="🔍 Поиск по фразе или таланту..."><div id="list"></div>;
+      app.innerHTML = `<input type="text" id="search" class="search-box" placeholder="🔍 Поиск по фразе или таланту..."><div id="list"></div>`;
       const listEl = document.getElementById("list");
       const draw = (q = "") => {
         listEl.innerHTML = "";
@@ -78,3 +172,17 @@ function togglePlay(id, btnId, barId) {
             <div class="list-note">${item.note}</div>
             <div class="list-actions">
               <button id="${bId}" class="btn-sm btn-play" onclick="togglePlay('${item.id}', '${bId}', null)">▶ Прослушать</button>
+              <a href="?id=${item.id}" class="btn-sm btn-open">Страница фразы</a>
+              <button class="btn-sm btn-copy" onclick="copyLink('${item.id}', this)">🔗 Ссылка для лота</button>
+            </div>
+          `;
+          listEl.appendChild(d);
+        });
+      };
+      document.getElementById("search").oninput = e => draw(e.target.value);
+      draw();
+    }
+    render();
+  </script>
+</body>
+</html>
