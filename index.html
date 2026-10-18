@@ -1,0 +1,27 @@
+filtered.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "phrase-card";
+        card.setAttribute("data-id", item.id);
+        card.innerHTML = 
+          <div class="card-top">
+            <span class="talent-badge">Голос ${item.talent}</span>
+            <span class="lang-tag">${item.lang === "OTHER" ? "CN / ES" : item.lang}</span>
+          </div>
+          <div class="phrase-title">${item.text}</div>
+          <div class="phrase-note">${item.note}</div>
+          <div class="controls">
+            <button class="play-btn" onclick="playPhrase('${item.id}')">▶ Прослушать фразу</button>
+            <a href="${FUNPAY_PROFILE}" target="_blank" rel="noopener" class="buy-btn">Купить на FunPay</a>
+            <button class="copy-btn" onclick="copyLink('${item.id}', this)">Ссылка для лота</button>
+          </div>
+          <div class="progress-bar"></div>
+        ;
+        container.appendChild(card);
+      });
+    }
+
+    document.getElementById("searchInput").addEventListener("input", e => render(e.target.value));
+    render();
+  </script>
+</body>
+</html>
